@@ -3,8 +3,8 @@ const velocidades = [];
 
 campos.forEach(() => {
   velocidades.push({
-    dx: (Math.random() * 10 - 1) * 3,
-    dy: (Math.random() * 10 - 1) * 3,
+    dx: (Math.random() * 8 - 1) * 3,
+    dy: (Math.random() * 8 - 1) * 3,
   });
 });
 
@@ -78,4 +78,34 @@ document.addEventListener("click", (event) => {
   }
 });
 
+const destinos = [
+  "Postar no Twitter",
+  "Enviar para a CAED",
+  "Postar no Reddit",
+  "Salvar e depois deletar",
+  "Mandar pro Elon Musk",
+  "Mandar para o Tralalero Tralala",
+  "Mandar para a Ballerina Cappuccina",
+];
+
 const botao = document.getElementById("botaoFinalizar");
+
+botao.addEventListener("click", () => {
+  const roleta = document.getElementById("roleta");
+  const opcao = document.getElementById("opcaoRoleta");
+  roleta.style.display = "block";
+
+  let count = 0;
+  const intervalo = setInterval(() => {
+    const sorteio = destinos[Math.floor(Math.random() * destinos.length)];
+    opcao.textContent = sorteio;
+    count++;
+    if (count > 20) {
+      clearInterval(intervalo);
+      setTimeout(() => {
+        alert(`Decisão final: ${sorteio}`);
+        roleta.style.display = "none";
+      }, 500);
+    }
+  }, 500);
+});

@@ -2,7 +2,7 @@ html,
 body {
   background-color: #1e1e1e;
   color: #fff;
-  cursor: crosshair;
+  cursor: url(assets/target.png), crosshair;
   font-family: Arial, sans-serif;
   height: 100%;
   margin: 0;
@@ -48,4 +48,26 @@ input {
   padding: 10px 20px;
   position: absolute;
   transition: transform 0.2s ease;
+}
+
+.roleta {
+  background-color: #222;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  padding: 30px;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.roleta h2 {
+  margin-bottom: 20px;
+}
+
+.opcao-roleta {
+  font-size: 18px;
+  margin: 10px 0;
 }
