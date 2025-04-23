@@ -70,4 +70,12 @@ document.addEventListener("click", (event) => {
       }`;
     }
   });
+  const todosLiberados = Array.from(campos).every((campo) =>
+    campo.classList.contains("liberado")
+  );
+  if (todosLiberados) {
+    document.getElementById("botaoFinalizar").style.display = "block";
+  }
 });
+
+const botao = document.getElementById("botaoFinalizar");
