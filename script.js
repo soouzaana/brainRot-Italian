@@ -55,7 +55,7 @@ function moverCampo() {
   }
 }
 
-setInterval(moverCampo, 30);
+setInterval(moverCampo, 50);
 
 document.addEventListener("click", (event) => {
   const som = document.getElementById("tiro");
@@ -92,6 +92,8 @@ const destinos = [
   "Mandar pro Elon Musk",
   "Mandar para o Tralalero Tralala",
   "Mandar para a Ballerina Cappuccina",
+  "Enviar para Bolsonaro",
+  "Cadastrar em vaga de trabalho no Atacadão",
 ];
 
 const botao = document.getElementById("botaoFinalizar");
@@ -136,9 +138,11 @@ function executarAcao(destino) {
       const tralalero = document.createElement("img");
       tralalero.src = "assets/tralalero.png";
       tralalero.alt = "Tralalero Tralala";
-      tralalero.style.maxWidth = "300px";
+      tralalero.style.maxWidth = "500px";
       tralalero.style.display = "block";
-      tralalero.style.margin = "20px auto";
+      tralalero.style.margin = "40px auto";
+      tralalero.style.zIndex = "1000000";
+
       document.body.appendChild(tralalero);
       const audioTralalero = document.getElementById("tralaleroAudio");
       audioTralalero.currentTime = 0;
@@ -149,13 +153,23 @@ function executarAcao(destino) {
       const ballerina = document.createElement("img");
       ballerina.src = "assets/ballerina.png";
       ballerina.alt = "Ballerina Cappuccina";
-      ballerina.style.maxWidth = "300px";
+      ballerina.style.maxWidth = "500px";
       ballerina.style.display = "block";
       ballerina.style.margin = "20px auto";
+      ballerina.style.zIndex = "10000";
       document.body.appendChild(ballerina);
       const audioBallerina = document.getElementById("ballerinaAudio");
       audioBallerina.currentTime = 0;
       audioBallerina.play();
+      break;
+    case "Enviar para Bolsonaro":
+      window.open(
+        "https://www.facebook.com/jairmessias.bolsonaro/?locale=pt_BR",
+        "_blank"
+      );
+      break;
+    case "Cadastrar em vaga de trabalho no Atacadão":
+      window.open("https://www.atacadao.com.br/trabalhe-conosco", "_blank");
       break;
     default:
       alert("Erro");
