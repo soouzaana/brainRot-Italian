@@ -1,6 +1,9 @@
 html,
 body {
   background-color: #1e1e1e;
+  background-image: url(assets/emuladorne.jpg);
+  background-size: cover;
+  background-position: center;
   color: #fff;
   cursor: url(assets/target.png), crosshair;
   font-family: Arial, sans-serif;
@@ -11,7 +14,7 @@ body {
 }
 
 .campo {
-  background: #333;
+  background: #db3082;
   border: 2px solid #fff;
   border-radius: 10px;
   padding: 10px;
@@ -24,7 +27,7 @@ input {
 }
 
 .feedback {
-  background: rgba(0, 0, 0, 0.5);
+  background: #9c225d;
   border-radius: 5px;
   font-size: 18px;
   left: 10px;
@@ -34,12 +37,12 @@ input {
 }
 
 .liberado {
-  background: #4caf50;
-  border-color: #4caf50;
+  background: #72418c;
+  border-color: #72418c;
 }
 
 .botao-finalizar {
-  background-color: crimson;
+  background-color: #ff087f;
   border: none;
   border-radius: 10px;
   color: white;
@@ -51,7 +54,7 @@ input {
 }
 
 .roleta {
-  background-color: #222;
+  background-color: #e840aa;
   border: 2px solid #fff;
   border-radius: 20px;
   padding: 30px;
@@ -65,6 +68,7 @@ input {
 
 .roleta h2 {
   margin-bottom: 20px;
+  border-bottom: #fff;
 }
 
 .opcao-roleta {

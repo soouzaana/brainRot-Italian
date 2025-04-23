@@ -10,7 +10,9 @@ campos.forEach(() => {
 
 function moverCampo() {
   campos.forEach((campo, index) => {
-    const rect = campo.getBoundingClientRect(); // pegar coordenadas do campo na tela
+    if (campo.classList.contains("liberado")) return; // 🔒 campo liberado = campo travado
+
+    const rect = campo.getBoundingClientRect();
     let dx = velocidades[index].dx;
     let dy = velocidades[index].dy;
     let x = rect.left + dx;
@@ -27,6 +29,12 @@ function moverCampo() {
 
   for (let i = 0; i < campos.length; i++) {
     for (let j = i + 1; j < campos.length; j++) {
+      if (
+        campos[i].classList.contains("liberado") ||
+        campos[j].classList.contains("liberado")
+      )
+        continue; // pula campos travados
+
       const rect1 = campos[i].getBoundingClientRect();
       const rect2 = campos[j].getBoundingClientRect();
 
@@ -126,23 +134,24 @@ function executarAcao(destino) {
       break;
     case "Mandar para o Tralalero Tralala":
       const tralalero = document.createElement("img");
-      img.src = "assets/tralalero.png";
-      img.alt = "Tralalero Tralala";
-      img.style.maxWidth = "300px";
-      img.style.display = "block";
-      img.style.margin = "20px auto";
+      tralalero.src = "assets/tralalero.png";
+      tralalero.alt = "Tralalero Tralala";
+      tralalero.style.maxWidth = "300px";
+      tralalero.style.display = "block";
+      tralalero.style.margin = "20px auto";
       document.body.appendChild(tralalero);
       const audioTralalero = document.getElementById("tralaleroAudio");
       audioTralalero.currentTime = 0;
       audioTralalero.play();
       break;
+
     case "Mandar para a Ballerina Cappuccina":
       const ballerina = document.createElement("img");
-      img.src = "assets/ballerina.png";
-      img.alt = "Ballerina Cappuccina";
-      img.style.maxWidth = "300px";
-      img.style.display = "block";
-      img.style.margin = "20px auto";
+      ballerina.src = "assets/ballerina.png";
+      ballerina.alt = "Ballerina Cappuccina";
+      ballerina.style.maxWidth = "300px";
+      ballerina.style.display = "block";
+      ballerina.style.margin = "20px auto";
       document.body.appendChild(ballerina);
       const audioBallerina = document.getElementById("ballerinaAudio");
       audioBallerina.currentTime = 0;
