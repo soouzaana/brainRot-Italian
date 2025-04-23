@@ -3,8 +3,8 @@ const velocidades = [];
 
 campos.forEach(() => {
   velocidades.push({
-    dx: (Math.random() * 8 - 1) * 3,
-    dy: (Math.random() * 8 - 1) * 3,
+    dx: (Math.random() * 4 - 1) * 3,
+    dy: (Math.random() * 4 - 1) * 3,
   });
 });
 
@@ -80,9 +80,7 @@ document.addEventListener("click", (event) => {
 
 const destinos = [
   "Postar no Twitter",
-  "Enviar para a CAED",
   "Postar no Reddit",
-  "Salvar e depois deletar",
   "Mandar pro Elon Musk",
   "Mandar para o Tralalero Tralala",
   "Mandar para a Ballerina Cappuccina",
@@ -96,16 +94,61 @@ botao.addEventListener("click", () => {
   roleta.style.display = "block";
 
   let count = 0;
+  let resultadoFinal = "";
+
   const intervalo = setInterval(() => {
     const sorteio = destinos[Math.floor(Math.random() * destinos.length)];
     opcao.textContent = sorteio;
+    resultadoFinal = sorteio;
     count++;
     if (count > 20) {
       clearInterval(intervalo);
       setTimeout(() => {
-        alert(`Decisão final: ${sorteio}`);
         roleta.style.display = "none";
+        executarAcao(resultadoFinal);
       }, 500);
     }
-  }, 500);
+  }, 100);
 });
+
+function executarAcao(destino) {
+  alert(`Decisão final: ${destino}`);
+
+  switch (destino) {
+    case "Postar no Twitter":
+      window.open("https://x.com", "_blank");
+      break;
+    case "Postar no Reddit":
+      window.open("https://www.reddit.com", "_blank");
+      break;
+    case "Mandar pro Elon Musk":
+      window.open("https://x.com/elonmusk", "_blank");
+      break;
+    case "Mandar para o Tralalero Tralala":
+      const tralalero = document.createElement("img");
+      img.src = "assets/tralalero.png";
+      img.alt = "Tralalero Tralala";
+      img.style.maxWidth = "300px";
+      img.style.display = "block";
+      img.style.margin = "20px auto";
+      document.body.appendChild(tralalero);
+      const audioTralalero = document.getElementById("tralaleroAudio");
+      audioTralalero.currentTime = 0;
+      audioTralalero.play();
+      break;
+    case "Mandar para a Ballerina Cappuccina":
+      const ballerina = document.createElement("img");
+      img.src = "assets/ballerina.png";
+      img.alt = "Ballerina Cappuccina";
+      img.style.maxWidth = "300px";
+      img.style.display = "block";
+      img.style.margin = "20px auto";
+      document.body.appendChild(ballerina);
+      const audioBallerina = document.getElementById("ballerinaAudio");
+      audioBallerina.currentTime = 0;
+      audioBallerina.play();
+      break;
+    default:
+      alert("Erro");
+  }
+}
