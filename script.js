@@ -10,7 +10,7 @@ campos.forEach(() => {
 
 function moverCampo() {
   campos.forEach((campo, index) => {
-    if (campo.classList.contains("liberado")) return; // 🔒 campo liberado = campo travado
+    if (campo.classList.contains("liberado")) return;
 
     const rect = campo.getBoundingClientRect();
     let dx = velocidades[index].dx;
@@ -33,7 +33,7 @@ function moverCampo() {
         campos[i].classList.contains("liberado") ||
         campos[j].classList.contains("liberado")
       )
-        continue; // pula campos travados
+        continue;
 
       const rect1 = campos[i].getBoundingClientRect();
       const rect2 = campos[j].getBoundingClientRect();

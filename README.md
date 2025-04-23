@@ -7,7 +7,7 @@ Entretanto, este não é um simples formulário, os campos de inpuestão **em mo
 
 ## Como Funciona?
 
-- O cursor é uma **mira personalizada**
+- O cursor é uma **mira personalizada**.
 - Cada campo (`Nome`, `Email`, `Senha`) se move aleatoriamente pela tela.
 - Clique nos campos com a mira para "destravar" e preencher.
 - Após liberar todos os campos, clique em **Finalizar** para sortear o destino dos seus dados.
