@@ -3,8 +3,8 @@ const velocidades = [];
 
 campos.forEach(() => {
   velocidades.push({
-    dx: (Math.random() * 4 - 1) * 3,
-    dy: (Math.random() * 4 - 1) * 3,
+    dx: (Math.random() * 10 - 1) * 3,
+    dy: (Math.random() * 10 - 1) * 3,
   });
 });
 
@@ -102,7 +102,6 @@ botao.addEventListener("click", () => {
   const roleta = document.getElementById("roleta");
   const opcao = document.getElementById("opcaoRoleta");
   roleta.style.display = "block";
-
   let count = 0;
   let resultadoFinal = "";
 
@@ -124,6 +123,24 @@ botao.addEventListener("click", () => {
 function executarAcao(destino) {
   alert(`Decisão final: ${destino}`);
 
+  // remover imagens do tralalero e ballerina
+  const imagem = document.getElementById("resultado");
+  if (imagem) {
+    imagem.remove();
+  }
+
+  // container para a imagem com z-index alto
+  const container = document.createElement("img");
+  container.id = "resultado";
+  container.style.position = "fixed";
+  container.style.top = "50%";
+  container.style.left = "50%";
+  container.style.transform = "translate(-50%, -50%)";
+  container.style.zIndex = "900";
+  container.style.maxHeight = "500px";
+  container.style.display = "block";
+  container.style.margin = "20px auto";
+
   switch (destino) {
     case "Postar no Twitter":
       window.open("https://x.com", "_blank");
@@ -135,29 +152,20 @@ function executarAcao(destino) {
       window.open("https://x.com/elonmusk", "_blank");
       break;
     case "Mandar para o Tralalero Tralala":
-      const tralalero = document.createElement("img");
-      tralalero.src = "assets/tralalero.png";
-      tralalero.alt = "Tralalero Tralala";
-      tralalero.style.maxWidth = "500px";
-      tralalero.style.display = "block";
-      tralalero.style.margin = "40px auto";
-      tralalero.style.zIndex = "1000000";
+      container.src = "assets/tralalero.png";
+      container.alt = "Tralalero Tralala";
+      document.body.appendChild(container);
 
-      document.body.appendChild(tralalero);
       const audioTralalero = document.getElementById("tralaleroAudio");
       audioTralalero.currentTime = 0;
       audioTralalero.play();
+
       break;
 
     case "Mandar para a Ballerina Cappuccina":
-      const ballerina = document.createElement("img");
-      ballerina.src = "assets/ballerina.png";
-      ballerina.alt = "Ballerina Cappuccina";
-      ballerina.style.maxWidth = "500px";
-      ballerina.style.display = "block";
-      ballerina.style.margin = "20px auto";
-      ballerina.style.zIndex = "10000";
-      document.body.appendChild(ballerina);
+      container.src = "assets/ballerina.png";
+      container.alt = "Ballerina Cappuccina";
+      document.body.appendChild(container);
       const audioBallerina = document.getElementById("ballerinaAudio");
       audioBallerina.currentTime = 0;
       audioBallerina.play();
