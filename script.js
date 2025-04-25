@@ -3,8 +3,8 @@ const velocidades = [];
 
 campos.forEach(() => {
   velocidades.push({
-    dx: Math.random() * 27 - 3,
-    dy: Math.random() * 27 - 3,
+    dx: Math.random() * 40 - 3,
+    dy: Math.random() * 40 - 3,
   });
 });
 
