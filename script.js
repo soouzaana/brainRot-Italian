@@ -19,7 +19,6 @@ function moverCampos() {
     const largura = window.innerWidth - posicao.width;
     const altura = window.innerHeight - posicao.height;
 
-    // Inverte direção se bater nas bordas da tela
     if (x < 0 || x > largura) velocidades[i].dx *= -1;
     if (y < 0 || y > altura) velocidades[i].dy *= -1;
 
@@ -111,14 +110,14 @@ botao.addEventListener("click", () => {
   roleta.style.display = "block";
 
   let sorteado = "";
-  let contagem = 0;
+  let contador = 0;
 
   const intervalo = setInterval(() => {
     sorteado = destinos[Math.floor(Math.random() * destinos.length)];
     opcao.textContent = sorteado;
-    contagem++;
+    contador++;
 
-    if (contagem > 20) {
+    if (contador > 20) {
       clearInterval(intervalo);
       setTimeout(() => {
         roleta.style.display = "none";

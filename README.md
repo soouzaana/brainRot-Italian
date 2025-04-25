@@ -21,7 +21,7 @@ Entretanto, este não é um simples formulário, os campos de inpuestão **em mo
 
 - [Ana Maria](https://github.com/soouzaana)
 - [Ândrea]
-- [Luis Miguel]
+- [Luis Miguel] (https://github.com/luiss05)
 
 Criado por estudantes do 2º ano de Informática do IFRO - Ji-Paraná.
 
