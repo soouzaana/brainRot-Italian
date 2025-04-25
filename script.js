@@ -3,25 +3,25 @@ const velocidades = [];
 
 campos.forEach(() => {
   velocidades.push({
-    dx: (Math.random() * 10 - 1) * 3,
-    dy: (Math.random() * 10 - 1) * 3,
+    dx: Math.random() * 27 - 3,
+    dy: Math.random() * 27 - 3,
   });
 });
 
-function moverCampo() {
-  campos.forEach((campo, index) => {
+function moverCampos() {
+  campos.forEach((campo, i) => {
     if (campo.classList.contains("liberado")) return;
 
-    const rect = campo.getBoundingClientRect();
-    let dx = velocidades[index].dx;
-    let dy = velocidades[index].dy;
-    let x = rect.left + dx;
-    let y = rect.top + dy;
+    const posicao = campo.getBoundingClientRect();
+    let x = posicao.left + velocidades[i].dx;
+    let y = posicao.top + velocidades[i].dy;
 
-    if (x < 0 || x > window.innerWidth - rect.width)
-      velocidades[index].dx *= -1;
-    if (y < 0 || y > window.innerHeight - rect.height)
-      velocidades[index].dy *= -1;
+    const largura = window.innerWidth - posicao.width;
+    const altura = window.innerHeight - posicao.height;
+
+    // Inverte direção se bater nas bordas da tela
+    if (x < 0 || x > largura) velocidades[i].dx *= -1;
+    if (y < 0 || y > altura) velocidades[i].dy *= -1;
 
     campo.style.left = `${x}px`;
     campo.style.top = `${y}px`;
@@ -29,23 +29,26 @@ function moverCampo() {
 
   for (let i = 0; i < campos.length; i++) {
     for (let j = i + 1; j < campos.length; j++) {
+      const campoA = campos[i];
+      const campoB = campos[j];
+
       if (
-        campos[i].classList.contains("liberado") ||
-        campos[j].classList.contains("liberado")
+        campoA.classList.contains("liberado") ||
+        campoB.classList.contains("liberado")
       )
         continue;
 
-      const rect1 = campos[i].getBoundingClientRect();
-      const rect2 = campos[j].getBoundingClientRect();
+      const a = campoA.getBoundingClientRect();
+      const b = campoB.getBoundingClientRect();
 
-      const colide = !(
-        rect1.right < rect2.left ||
-        rect1.left > rect2.right ||
-        rect1.bottom < rect2.top ||
-        rect1.top > rect2.bottom
+      const colidiu = !(
+        a.right < b.left ||
+        a.left > b.right ||
+        a.bottom < b.top ||
+        a.top > b.bottom
       );
 
-      if (colide) {
+      if (colidiu) {
         velocidades[i].dx *= -1;
         velocidades[i].dy *= -1;
         velocidades[j].dx *= -1;
@@ -55,7 +58,7 @@ function moverCampo() {
   }
 }
 
-setInterval(moverCampo, 50);
+setInterval(moverCampos, 50);
 
 document.addEventListener("click", (event) => {
   const som = document.getElementById("tiro");
@@ -63,24 +66,28 @@ document.addEventListener("click", (event) => {
   som.play();
 
   campos.forEach((campo) => {
-    const rect = campo.getBoundingClientRect();
-    const dentro =
-      event.clientX >= rect.left &&
-      event.clientX <= rect.right &&
-      event.clientY >= rect.top &&
-      event.clientY <= rect.bottom;
+    const pos = campo.getBoundingClientRect();
+    const clicadoDentro =
+      event.clientX >= pos.left &&
+      event.clientX <= pos.right &&
+      event.clientY >= pos.top &&
+      event.clientY <= pos.bottom;
 
-    if (dentro && !campo.classList.contains("liberado")) {
+    if (clicadoDentro && !campo.classList.contains("liberado")) {
       campo.classList.add("liberado");
       campo.querySelector("input").disabled = false;
-      document.getElementById("feedback").textContent = `Campo Liberado: ${
+
+      const feedback = document.getElementById("feedback");
+      feedback.textContent = `Campo Liberado: ${
         campo.querySelector("input").placeholder
       }`;
     }
   });
+
   const todosLiberados = Array.from(campos).every((campo) =>
     campo.classList.contains("liberado")
   );
+
   if (todosLiberados) {
     document.getElementById("botaoFinalizar").style.display = "block";
   }
@@ -102,19 +109,20 @@ botao.addEventListener("click", () => {
   const roleta = document.getElementById("roleta");
   const opcao = document.getElementById("opcaoRoleta");
   roleta.style.display = "block";
-  let count = 0;
-  let resultadoFinal = "";
+
+  let sorteado = "";
+  let contagem = 0;
 
   const intervalo = setInterval(() => {
-    const sorteio = destinos[Math.floor(Math.random() * destinos.length)];
-    opcao.textContent = sorteio;
-    resultadoFinal = sorteio;
-    count++;
-    if (count > 20) {
+    sorteado = destinos[Math.floor(Math.random() * destinos.length)];
+    opcao.textContent = sorteado;
+    contagem++;
+
+    if (contagem > 20) {
       clearInterval(intervalo);
       setTimeout(() => {
         roleta.style.display = "none";
-        executarAcao(resultadoFinal);
+        executarAcao(sorteado);
       }, 500);
     }
   }, 100);
@@ -123,23 +131,18 @@ botao.addEventListener("click", () => {
 function executarAcao(destino) {
   alert(`Decisão final: ${destino}`);
 
-  // remover imagens do tralalero e ballerina
-  const imagem = document.getElementById("resultado");
-  if (imagem) {
-    imagem.remove();
-  }
+  const imagemAntiga = document.getElementById("resultado");
+  if (imagemAntiga) imagemAntiga.remove();
 
-  // container para a imagem com z-index alto
-  const container = document.createElement("img");
-  container.id = "resultado";
-  container.style.position = "fixed";
-  container.style.top = "50%";
-  container.style.left = "50%";
-  container.style.transform = "translate(-50%, -50%)";
-  container.style.zIndex = "900";
-  container.style.maxHeight = "500px";
-  container.style.display = "block";
-  container.style.margin = "20px auto";
+  const imagem = document.createElement("img");
+  imagem.id = "resultado";
+  imagem.style.position = "fixed";
+  imagem.style.top = "50%";
+  imagem.style.left = "50%";
+  imagem.style.transform = "translate(-50%, -50%)";
+  imagem.style.zIndex = "900";
+  imagem.style.maxHeight = "500px";
+  imagem.style.margin = "20px auto";
 
   switch (destino) {
     case "Postar no Twitter":
@@ -152,34 +155,30 @@ function executarAcao(destino) {
       window.open("https://x.com/elonmusk", "_blank");
       break;
     case "Mandar para o Tralalero Tralala":
-      container.src = "assets/tralalero.png";
-      container.alt = "Tralalero Tralala";
-      document.body.appendChild(container);
+      imagem.src = "assets/tralalero.png";
+      imagem.alt = "Tralalero Tralala";
+      document.body.appendChild(imagem);
 
       const audioTralalero = document.getElementById("tralaleroAudio");
       audioTralalero.currentTime = 0;
       audioTralalero.play();
-
       break;
-
     case "Mandar para a Ballerina Cappuccina":
-      container.src = "assets/ballerina.png";
-      container.alt = "Ballerina Cappuccina";
-      document.body.appendChild(container);
+      imagem.src = "assets/ballerina.png";
+      imagem.alt = "Ballerina Cappuccina";
+      document.body.appendChild(imagem);
+
       const audioBallerina = document.getElementById("ballerinaAudio");
       audioBallerina.currentTime = 0;
       audioBallerina.play();
       break;
     case "Enviar para Bolsonaro":
-      window.open(
-        "https://www.facebook.com/jairmessias.bolsonaro/?locale=pt_BR",
-        "_blank"
-      );
+      window.open("https://www.facebook.com/jairmessias.bolsonaro", "_blank");
       break;
     case "Cadastrar em vaga de trabalho no Atacadão":
       window.open("https://www.atacadao.com.br/trabalhe-conosco", "_blank");
       break;
     default:
-      alert("Erro");
+      alert("Erro ao executar ação.");
   }
 }
