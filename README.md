@@ -1,5 +1,9 @@
 # Formulário Interativo - Atividade de Programação Web
 
+<img src="assets/readme/tela1.png"><br>
+<img src="assets/readme/tela2.png">
+Demonstração do site
+
 ## Descrição do Projeto
 
 Este projeto consiste em uma página web, criada como uma atividade da matéria de Programação Web. O objetivo da atividade é criar uma página web, mas com humor. Nessa linha de raciocínio, nós desenvolvemos uma página de formulário, no qual o usuário deverá inserir seus dados (como: Nome, Email e Senha).
